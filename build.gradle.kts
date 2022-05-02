@@ -39,6 +39,7 @@ allprojects {
         mavenCentral()
         mavenLocal()
         maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
+        maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
         maven { url = uri("https://jitpack.io") }
         maven { url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/") }
     }

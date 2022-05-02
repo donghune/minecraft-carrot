@@ -26,7 +26,7 @@ publishing {
     }
     repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/donghune/minecraft-donghune")
+            url = uri("https://s01.oss.sonatype.org/content/repositories/releases/")
             credentials {
                 val prop = org.jetbrains.kotlin.konan.properties.Properties()
                 val file = File(rootProject.projectDir, "env.properties")
