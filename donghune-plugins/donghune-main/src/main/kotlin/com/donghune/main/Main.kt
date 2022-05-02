@@ -1,11 +1,6 @@
 package com.donghune.main
 
-import org.bukkit.plugin.java.JavaPlugin
+import io.github.donghune.api.DHEPlugin
 
-class Main : JavaPlugin() {
-    override fun onEnable() {
-    }
-
-    override fun onDisable() {
-    }
+class Main : DHEPlugin() {
 }

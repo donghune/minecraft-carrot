@@ -1,7 +1,8 @@
-package io.github.inggameteam.utils
+package io.github.donghune.utils
 
 import org.bukkit.ChatColor
 import org.bukkit.Color
+import org.bukkit.plugin.java.JavaPlugin
 
 object ColorUtil {
     @JvmStatic

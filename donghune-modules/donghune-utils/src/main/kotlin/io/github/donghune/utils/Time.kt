@@ -1,4 +1,4 @@
-package io.github.inggameteam.utils
+package io.github.donghune.utils
 
 enum class Time(val unit: String, val sec: Int) {
     DAYS("일", 86400),

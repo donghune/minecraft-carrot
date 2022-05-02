@@ -1,6 +1,6 @@
-package io.github.inggameteam.utils
+package io.github.donghune.utils
 
-import io.github.inggameteam.utils.ColorUtil.color
+import io.github.donghune.utils.ColorUtil.color
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
