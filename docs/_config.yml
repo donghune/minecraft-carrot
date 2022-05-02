@@ -6,11 +6,11 @@ title: donghune
 
 # Where the page will be deployed.
 # If it's https://foo.com/bar, just write "https://foo.com"
-url: "https://github.com/IngGameTeam/inggame"
+url: "https://github.com/donghune/minecraft-donghune"
 
 # If you're deployging to a subdirectory (https://foo.com/bar/)
 # Then write "/bar/". Otherwise, remove this line.
-baseurl: "/donghune/"
+baseurl: "/minecraft-donghune/"
 
 # Set default og:image
 # From Unsplash: https://unsplash.com/photos/1_CMoFsPfso
