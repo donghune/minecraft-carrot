@@ -1,0 +1,6 @@
+name: Main
+version: '${version}'
+main: com.donghune.Main
+api-version: 1.18
+prefix: DHE
+description: minecraft project donghune source
