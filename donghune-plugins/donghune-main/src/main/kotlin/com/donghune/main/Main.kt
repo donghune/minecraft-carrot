@@ -1,8 +1,8 @@
-package com.donghune.donghune
+package com.donghune.main
 
 import org.bukkit.plugin.java.JavaPlugin
 
-class donghune : JavaPlugin() {
+class Main : JavaPlugin() {
     override fun onEnable() {
     }
 
