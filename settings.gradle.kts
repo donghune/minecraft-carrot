@@ -1,11 +1,7 @@
-//if((JavaVersion.current() != JavaVersion.VERSION_17)) {
-//    throw kotlin.NullPointerException("Java 17 is required")
-//}
-
 rootProject.name = "donghune"
 
 val plugins = "${rootProject.name}-plugins"
-val modules = "${rootProject.name}-modules"
+val modules = "${rootProject.name}-library"
 
 
 listOf(modules, plugins).forEach { sub ->
@@ -14,5 +10,3 @@ listOf(modules, plugins).forEach { sub ->
         include(":${sub}:${file.name}")
     }
 }
-
-include("${rootProject.name}-publish")

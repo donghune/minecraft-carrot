@@ -9,7 +9,7 @@ subprojects {
             copy {
                 val sep = File.separator
                 from("${buildDir.absolutePath}${sep}libs$sep${project.name}.jar")
-                into("${pluginProject.buildDir.absolutePath}${sep}dist")
+                into("${pluginProject.rootDir.absolutePath}${sep}.server${sep}plugins${sep}update${sep}")
             }
         }
     }
@@ -28,7 +28,7 @@ subprojects {
     }
 
     dependencies {
-        implementation("io.github.donghune:donghune-modules:+")
+        implementation(project(":donghune-library"))
     }
 
 }
