@@ -1,0 +1,32 @@
+/*
+ * Copyright (c) 2020 Noonmaru
+ *
+ *  Licensed under the General Public License, Version 3.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://opensource.org/licenses/gpl-3.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package io.github.donghune.api.kommand.argument
+
+import io.github.donghune.api.kommand.KommandContext
+import org.bukkit.boss.BarStyle
+
+class BarStyleArgument : KommandArgument<BarStyle> {
+    override fun parse(context: KommandContext, param: String): BarStyle {
+        return BarStyle.valueOf(param)
+    }
+
+    override fun listSuggestion(context: KommandContext, target: String): Collection<String> {
+        return BarStyle.values().map { it.name }
+    }
+}
+
+fun bossBarStyle() = BarStyleArgument()

@@ -1,0 +1,6 @@
+{
+    "primaryKey": "RegenConfig",
+    "hive": 20,
+    "sheep": 20,
+    "chicken": 20
+}

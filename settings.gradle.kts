@@ -1,4 +1,4 @@
-rootProject.name = "donghune"
+rootProject.name = "carrot"
 
 val plugins = "${rootProject.name}-plugins"
 val modules = "${rootProject.name}-library"
