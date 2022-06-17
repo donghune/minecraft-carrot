@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    compileOnly(files("/Users/yudonghun/IdeaProjects/minecraft-carrot/carrot-plugins/carrot-visitor/libs/spigot-1.16.5.jar"))
+    compileOnly(files("libs/spigot-1.16.5.jar"))
 }
