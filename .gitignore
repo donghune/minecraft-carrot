@@ -1,6 +1,7 @@
 # User-specific stuff
 .idea/
 .server/
+.server-mod/
 *.iml
 *.ipr
 *.iws
@@ -27,6 +28,7 @@ atlassian-ide-plugin.xml
 *.nar
 *.ear
 *.zip
+*.jar
 *.tar.gz
 *.rar
 
@@ -115,6 +117,3 @@ run/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
-
-.server-mod
-releases/
