@@ -119,3 +119,4 @@ run/
 donghune-publish/env.properties
 
 .server-mod
+.releases/*.jar
