@@ -16,7 +16,7 @@ subprojects {
             }
             copy {
                 from("${buildDir.absolutePath}${sep}libs$sep${project.name}.jar")
-                into("${pluginProject.rootDir.absolutePath}${sep}releases${sep}")
+                into("${pluginProject.rootDir.absolutePath}${sep}output${sep}")
             }
         }
     }
