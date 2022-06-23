@@ -43,18 +43,14 @@ allprojects {
         maven("https://oss.sonatype.org/content/repositories/snapshots")
         maven("https://oss.sonatype.org/content/repositories/central")
         maven("https://maven.enginehub.org/repo/")
+        maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
         maven("https://jitpack.io")
     }
 
     dependencies {
-        testImplementation(kotlin("test"))
-        compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
-
-        compileOnly("net.kyori:adventure-api:4.10.1")
-        compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.0-SNAPSHOT")
-
+        implementation("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.3")
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     }

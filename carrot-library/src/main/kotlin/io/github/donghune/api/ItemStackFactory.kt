@@ -1,10 +1,15 @@
 package io.github.donghune.api
 
 import io.github.donghune.api.extensions.chatColor
-import net.kyori.adventure.text.Component
+import net.md_5.bungee.api.chat.TranslatableComponent
+import net.minecraft.server.v1_16_R3.ChatMessage
+import net.minecraft.server.v1_16_R3.LocaleLanguage
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.*
@@ -16,9 +21,11 @@ fun ItemStack.edit(isWithClone: Boolean = false, block: ItemStackFactory.() -> I
 val ItemStack.displayName: String
     get() = itemMeta?.displayName ?: ""
 
-val ItemStack.translateName: Component
+val ItemStack.resourceKey: String
     get() {
-        return displayName()
+        val nmsItem: net.minecraft.server.v1_16_R3.ItemStack = CraftItemStack.asNMSCopy(this)
+        LocaleLanguage.a()
+        return (nmsItem.item.h(nmsItem) as ChatMessage).key
     }
 
 val ItemStack.displayNameOrLocaleMaterial: String
@@ -64,13 +71,6 @@ class ItemStackFactory(
         (changedItemMeta.lore ?: mutableListOf())
             .apply { add("&f${value}".chatColor()) }
             .also { changedItemMeta.lore = it }
-        return this
-    }
-
-    fun addLore(value: Component): ItemStackFactory {
-        (changedItemMeta.lore() ?: mutableListOf())
-            .apply { add(value) }
-            .also { changedItemMeta.lore(it) }
         return this
     }
 

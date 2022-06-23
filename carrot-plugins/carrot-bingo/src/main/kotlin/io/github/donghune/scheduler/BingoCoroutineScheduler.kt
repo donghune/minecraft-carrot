@@ -1,29 +1,31 @@
 package io.github.donghune.scheduler
 
 import io.github.donghune.BingoManager
-import io.github.donghune.addAll
-import io.github.donghune.api.extensions.toComponent
-import io.github.donghune.api.mccoroutine.KCoroutineScheduler
+import io.github.donghune.api.extensions.Title
+import io.github.donghune.api.mccoroutine.KBukkitScheduler
+import io.github.donghune.api.translate
 import io.github.donghune.entity.BingoConfigManager
-import io.github.donghune.removeAll
-import net.kyori.adventure.bossbar.BossBar
-import net.kyori.adventure.text.Component
+import io.github.donghune.api.extensions.sendActionBar
+import io.github.donghune.api.extensions.sendTitle
+import io.github.donghune.api.inventory.updateGUI
 import org.bukkit.Bukkit
+import org.bukkit.boss.BarColor
+import org.bukkit.boss.BarStyle
 import org.bukkit.inventory.ItemStack
 
-
-object BingoCoroutineScheduler : KCoroutineScheduler() {
+object BingoCoroutineScheduler : KBukkitScheduler() {
     init {
         onStart {
             BingoManager.createAll()
+            Bukkit.getOnlinePlayers().sendTitle { Title("빙고 시작!", "[Shift] + [F] 를 눌러 빙고판을 확인 할 수 있습니다.") }
         }
         onDuringSec { sec ->
-            Bukkit.getOnlinePlayers().forEach {
-                it.sendActionBar("%d:%02d".format(sec / 60, sec % 60).toComponent())
-            }
-            if (sec % 2 == 0) {
-                SpecialTimeScheduler.stop()
-                job += SpecialTimeScheduler.start(2)
+            Bukkit.getOnlinePlayers().sendActionBar { "%d:%02d".format(sec / 60, sec % 60) }
+            if (sec != totalTime && sec != 0 && sec % BingoConfigManager.get().specialTime == 0) {
+                if (SpecialTimeScheduler.isRunning) {
+                    SpecialTimeScheduler.stop()
+                }
+                SpecialTimeScheduler.start(BingoConfigManager.get().specialTime)
             }
         }
         onStop {
@@ -34,26 +36,27 @@ object BingoCoroutineScheduler : KCoroutineScheduler() {
     }
 }
 
-object SpecialTimeScheduler : KCoroutineScheduler() {
+object SpecialTimeScheduler : KBukkitScheduler() {
 
-    private val bossBar = BossBar.bossBar(Component.text(""), 1f, BossBar.Color.GREEN, BossBar.Overlay.PROGRESS)
-    var isSpecialTime = false
     var specialItem: ItemStack? = null
+    private val bossBar =
+        Bukkit.createBossBar("특별 이벤트! [${specialItem?.translate}] 를 찾아라!", BarColor.BLUE, BarStyle.SOLID)
 
     init {
         onStart {
-            isSpecialTime = true
             specialItem = BingoConfigManager.get().items.random()
-            Component.text("현재 ")
-                .append(specialItem?.displayName() ?: Component.text(""))
-                .append(Component.text(" 을 가져오시면 교환티켓으로 바꿔드립니다!"))
-                .also { bossBar.name(it) }
-
-            bossBar.addAll()
+            bossBar.setTitle("특별 이벤트! [${specialItem?.translate}] 를 찾아라!")
+            Bukkit.getOnlinePlayers().updateGUI()
+            Bukkit.getOnlinePlayers().forEach { bossBar.addPlayer(it) }
+        }
+        onDuringSec {
+            Bukkit.getOnlinePlayers().forEach { bossBar.addPlayer(it) }
+            bossBar.progress = (leftSec / totalTime.toDouble())
         }
         onStop {
-            isSpecialTime = false
-            bossBar.removeAll()
+            specialItem = null
+            Bukkit.getOnlinePlayers().updateGUI()
+            Bukkit.getOnlinePlayers().forEach { bossBar.removePlayer(it) }
         }
     }
 }

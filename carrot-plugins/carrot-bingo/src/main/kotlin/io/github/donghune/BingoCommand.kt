@@ -1,6 +1,7 @@
 package io.github.donghune
 
 import io.github.donghune.api.kommand.kommand
+import io.github.donghune.api.translate
 import io.github.donghune.entity.BingoConfigManager
 import io.github.donghune.inventory.BingoItemRemoveInventory
 import io.github.donghune.scheduler.BingoCoroutineScheduler
@@ -10,6 +11,11 @@ object BingoCommand {
     fun initialize(plugin: BingoPlugin) {
         plugin.kommand {
             register("bingo") {
+                then("test") {
+                    executes {
+                        it.player.sendMessage(it.player.inventory.itemInMainHand.translate)
+                    }
+                }
                 then("start") {
                     executes {
                         BingoCoroutineScheduler.start(BingoConfigManager.get().gamePlayTime)
@@ -31,6 +37,7 @@ object BingoCommand {
                             }
 
                             BingoConfigManager.get().items.add(player.inventory.itemInMainHand)
+                            BingoConfigManager.get().update()
                             player.sendMessage("아이템을 등록하였습니다.")
                         }
                     }

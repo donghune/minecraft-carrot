@@ -10,6 +10,16 @@ import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 
+val playerByGUI = mutableMapOf<Player, GUI>()
+
+fun Player.updateGUI() {
+    playerByGUI[this]?.refreshContent()
+}
+
+fun Collection<Player>.updateGUI() {
+    forEach { it.updateGUI() }
+}
+
 abstract class GUI(
     private val plugin: JavaPlugin,
     private val size: Int,
@@ -48,6 +58,7 @@ abstract class GUI(
             return
         }
 
+        playerByGUI[event.player as Player] = this
         onInventoryOpen(event)
     }
 
@@ -72,6 +83,7 @@ abstract class GUI(
             return
         }
 
+        playerByGUI.remove(event.player as Player)
         onInventoryClose(event)
         InventoryCloseEvent.getHandlerList().unregister(this)
         InventoryClickEvent.getHandlerList().unregister(this)

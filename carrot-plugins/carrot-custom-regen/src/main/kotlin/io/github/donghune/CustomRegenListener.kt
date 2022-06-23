@@ -9,6 +9,7 @@ import org.bukkit.entity.Sheep
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDropItemEvent
+import org.bukkit.event.entity.EntityEnterBlockEvent
 import org.bukkit.event.entity.SheepRegrowWoolEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -29,14 +30,14 @@ class CustomRegenListener : Listener {
                 return
             }
 
-            if (player.inventory.itemInMainHand.type != Material.GLASS_BOTTLE) {
+            if (!(player.inventory.itemInMainHand.type == Material.GLASS_BOTTLE || player.inventory.itemInMainHand.type == Material.SHEARS)) {
                 return
             }
 
             HiveRegenScheduler(
                 hiveLocation = block.location,
-                armorStand = block.location.world.spawn(
-                    block.location.clone().add(0.5, -1.0, 0.0),
+                armorStand = block.location.world!!.spawn(
+                    block.location.clone().add(0.5, -1.0, 0.5),
                     ArmorStand::class.java
                 ).apply {
                     isInvisible = true
@@ -67,6 +68,11 @@ class CustomRegenListener : Listener {
 
     @EventHandler // 양 양털이 다시 자랐을때 이벤트
     fun onSheepRegrowWoolEvent(event: SheepRegrowWoolEvent) {
+        event.isCancelled = true
+    }
+
+    @EventHandler
+    fun onEntityEnterBlockEvent(event : EntityEnterBlockEvent) {
         event.isCancelled = true
     }
 

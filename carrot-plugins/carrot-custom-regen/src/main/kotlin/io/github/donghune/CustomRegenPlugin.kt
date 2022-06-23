@@ -1,26 +1,13 @@
 package io.github.donghune
 
-import io.github.donghune.api.DHEPlugin
-import io.github.donghune.api.mccoroutine.KCoroutineScheduler
+import io.github.donghune.api.BasePlugin
 import org.bukkit.Bukkit
-import org.bukkit.entity.Chicken
 
-class CustomRegenPlugin : DHEPlugin() {
+class CustomRegenPlugin : BasePlugin() {
     override fun onEnable() {
         super.onEnable()
         Bukkit.getPluginManager().registerEvents(CustomRegenListener(), this)
         CustomRegenCommand.initialize(this)
-
-        val kCoroutineScheduler = KCoroutineScheduler()
-        kCoroutineScheduler.onDuringSec {
-            Bukkit.getWorld("world")!!.entities
-                .filterIsInstance(Chicken::class.java)
-                .filter { !it.isCustomNameVisible }
-                .forEach {
-                    ChickenRegenScheduler(it).start(RegenConfigManager.get().chicken)
-                }
-        }
-        kCoroutineScheduler.start(Int.MAX_VALUE / 20)
     }
 
     override fun onDisable() {

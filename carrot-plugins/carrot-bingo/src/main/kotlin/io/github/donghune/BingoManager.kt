@@ -1,5 +1,7 @@
 package io.github.donghune
 
+import io.github.donghune.api.extensions.Title
+import io.github.donghune.api.extensions.sendTitle
 import io.github.donghune.entity.BingoConfigManager
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -82,10 +84,10 @@ object BingoManager {
     }
 
     fun printRank() {
-        Bukkit.getOnlinePlayers().map { it to calculateBingoCount(it) }.toList().chunked(5)[0].sortedBy { it.second }
-            .forEachIndexed { index, pair ->
-                Bukkit.broadcastMessage("$index. ${pair.first.displayName} : [${pair.second}]")
-            }
+        val player =
+            Bukkit.getOnlinePlayers().map { it to calculateBingoCount(it) }.toList().sortedBy { it.second }[0].first
+
+        Bukkit.getOnlinePlayers().sendTitle { Title(player.displayName, "축하드립니다!") }
     }
 }
 

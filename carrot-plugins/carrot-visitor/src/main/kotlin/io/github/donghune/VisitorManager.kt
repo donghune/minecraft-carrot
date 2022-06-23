@@ -5,8 +5,8 @@ import io.github.donghune.api.extensions.toComponent
 import io.github.donghune.api.getString
 import io.github.donghune.api.plugin
 import io.github.donghune.api.setTag
+import io.github.donghune.api.translate
 import io.github.donghune.entity.VisitorConfig
-import io.github.donghune.entity.localizedName
 import io.github.donghune.entity.visitorConfig
 import io.github.donghune.scheduler.VisitorWaitingScheduler
 import org.bukkit.Bukkit
@@ -68,7 +68,7 @@ object VisitorManager {
 
         val itemEntity = world.dropItem(startLocation, entityItem.clone().apply { amount = 1 }).apply {
             setTag("isVisitorItem", true)
-            customName = "${entityItem.localizedName} ${entityItem.amount}개"
+            customName = "${entityItem.translate} ${entityItem.amount}개"
             isCustomNameVisible = true
         }
 

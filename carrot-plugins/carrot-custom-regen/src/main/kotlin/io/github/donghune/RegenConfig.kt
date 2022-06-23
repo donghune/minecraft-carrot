@@ -10,6 +10,8 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.Sheep
 import java.time.LocalDateTime
 
+val regenConfig = RegenConfigManager.get()
+
 @Serializable
 data class RegenConfig(
     val hive: Int = 20,
@@ -26,4 +28,5 @@ object RegenConfigManager : ConfigManager<RegenConfig>(
     "", RegenConfig.serializer(), RegenConfig()
 ) {
     val cows = mutableListOf<Entity>()
+    val chickens = mutableListOf<Chicken>()
 }

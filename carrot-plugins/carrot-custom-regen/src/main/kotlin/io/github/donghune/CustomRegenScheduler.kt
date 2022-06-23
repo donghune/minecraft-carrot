@@ -1,7 +1,7 @@
 package io.github.donghune
 
 import io.github.donghune.api.extensions.chatColor
-import io.github.donghune.api.mccoroutine.KCoroutineScheduler
+import io.github.donghune.api.mccoroutine.KBukkitScheduler
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.data.type.Beehive
@@ -11,11 +11,12 @@ import org.bukkit.entity.Cow
 import org.bukkit.entity.Sheep
 import org.bukkit.inventory.ItemStack
 
-class ChickenRegenScheduler(private val chicken: Chicken) : KCoroutineScheduler() {
+class ChickenRegenScheduler(private val chicken: Chicken) : KBukkitScheduler() {
     init {
         onStart {
             chicken.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
             chicken.isCustomNameVisible = true
+            RegenConfigManager.chickens.add(chicken)
         }
         onDuringSec {
             chicken.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
@@ -28,7 +29,7 @@ class ChickenRegenScheduler(private val chicken: Chicken) : KCoroutineScheduler(
 }
 
 class HiveRegenScheduler(private val hiveLocation: Location, private val armorStand: ArmorStand) :
-    KCoroutineScheduler() {
+    KBukkitScheduler() {
     init {
         onStart {
             armorStand.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
@@ -46,7 +47,7 @@ class HiveRegenScheduler(private val hiveLocation: Location, private val armorSt
     }
 }
 
-class SheepRegenScheduler(private val sheep: Sheep) : KCoroutineScheduler() {
+class SheepRegenScheduler(private val sheep: Sheep) : KBukkitScheduler() {
     init {
         onStart {
             sheep.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
@@ -62,7 +63,7 @@ class SheepRegenScheduler(private val sheep: Sheep) : KCoroutineScheduler() {
     }
 }
 
-class CowRegenScheduler(private val cow: Cow) : KCoroutineScheduler() {
+class CowRegenScheduler(private val cow: Cow) : KBukkitScheduler() {
     init {
         onStart {
             RegenConfigManager.cows.add(cow)

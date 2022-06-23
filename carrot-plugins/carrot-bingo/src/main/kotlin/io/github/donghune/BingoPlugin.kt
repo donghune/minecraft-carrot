@@ -1,11 +1,11 @@
 package io.github.donghune
 
-import io.github.donghune.api.DHEPlugin
+import io.github.donghune.api.BasePlugin
 import org.bukkit.Bukkit
 
 lateinit var bingoPlugin: BingoPlugin
 
-class BingoPlugin : DHEPlugin() {
+class BingoPlugin : BasePlugin() {
     override fun onEnable() {
         super.onEnable()
         bingoPlugin = this
