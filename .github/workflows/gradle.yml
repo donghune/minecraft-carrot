@@ -40,7 +40,7 @@ jobs:
         uses: willo32/google-drive-upload-action@v1
         with:
           target: carrot-plugins/carrot-bingo/build/libs/carrot-bingo.jar
-          credentials: ${{ secrets.<DRIVE_SERVICE_ACCOUNT_CREDENTIALS> }}
+          credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
           child_folder: bingo
 
