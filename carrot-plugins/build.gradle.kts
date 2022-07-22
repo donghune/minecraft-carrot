@@ -25,17 +25,6 @@ subprojects {
         register<DefaultTask>(projectName) {
             dependsOn(build)
         }
-        register<DefaultTask>("${projectName}-release") {
-            googleDrive {
-                destinationFolderPath = 'test/upload'
-                destinationName = 'cute_picture.jpg'
-                file = file('c:\\Users\\User\\Pictures\\kittens.jpg')
-                updateIfExists = false
-                clientId  = '<YOUR CLIENT ID>'
-                clientSecret = '<YOUR CLIENT SECRET>'
-                credentialsDir = file('.gradle/google-drive-uploader/credentials/')
-            }
-        }
     }
 
     if (version == "unspecified") {
