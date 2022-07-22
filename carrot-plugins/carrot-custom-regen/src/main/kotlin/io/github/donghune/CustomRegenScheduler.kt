@@ -1,6 +1,5 @@
 package io.github.donghune
 
-import io.github.donghune.api.extensions.chatColor
 import io.github.donghune.api.mccoroutine.KBukkitScheduler
 import org.bukkit.Location
 import org.bukkit.Material
@@ -17,6 +16,8 @@ class ChickenRegenScheduler(private val chicken: Chicken) : KBukkitScheduler() {
             chicken.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
             chicken.isCustomNameVisible = true
             RegenConfigManager.chickens.add(chicken)
+            chicken.setOnEntityDeathEvent { cancel() }
+            chicken.setOnEntityDropItemEvent { it.isCancelled = true }
         }
         onDuringSec {
             chicken.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
@@ -36,7 +37,7 @@ class HiveRegenScheduler(private val hiveLocation: Location, private val armorSt
             armorStand.isCustomNameVisible = true
         }
         onDuringSec {
-            armorStand.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60).chatColor()
+            armorStand.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
         }
         onStop {
             val hive = hiveLocation.block.blockData as Beehive
@@ -52,6 +53,8 @@ class SheepRegenScheduler(private val sheep: Sheep) : KBukkitScheduler() {
         onStart {
             sheep.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
             sheep.isCustomNameVisible = true
+            sheep.setOnEntityDeathEvent { cancel() }
+            sheep.setOnSheepRegrowWoolEvent { it.isCancelled = true }
         }
         onDuringSec {
             sheep.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
@@ -69,6 +72,7 @@ class CowRegenScheduler(private val cow: Cow) : KBukkitScheduler() {
             RegenConfigManager.cows.add(cow)
             cow.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)
             cow.isCustomNameVisible = true
+            cow.setOnEntityDeathEvent { cancel() }
         }
         onDuringSec {
             cow.customName = "%02d:%02d".format(leftSec / 60, leftSec % 60)

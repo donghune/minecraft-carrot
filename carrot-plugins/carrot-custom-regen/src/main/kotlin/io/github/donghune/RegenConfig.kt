@@ -1,19 +1,18 @@
 package io.github.donghune
 
+import io.github.donghune.api.extensions.mainWorld
 import io.github.donghune.api.manager.Config
 import io.github.donghune.api.manager.ConfigManager
 import kotlinx.serialization.Serializable
-import org.bukkit.Location
-import org.bukkit.entity.ArmorStand
+import org.bukkit.World
 import org.bukkit.entity.Chicken
 import org.bukkit.entity.Entity
-import org.bukkit.entity.Sheep
-import java.time.LocalDateTime
 
 val regenConfig = RegenConfigManager.get()
 
 @Serializable
 data class RegenConfig(
+    val world: World = mainWorld,
     val hive: Int = 20,
     val sheep: Int = 20,
     val chicken: Int = 20,

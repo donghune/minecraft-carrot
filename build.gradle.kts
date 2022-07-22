@@ -12,6 +12,7 @@ val kotlinVersion = "1.6.21"
 plugins {
     kotlin("jvm") version "1.6.10"
     id("org.jetbrains.dokka") version "1.6.21"
+    id("ru.kinca.google-drive-uploader") version "1.1.0"
 }
 
 java {
@@ -49,6 +50,7 @@ allprojects {
 
     dependencies {
         implementation("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
+        implementation(files("./libs/forge-1.16.5-36.2.34.jar"))
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.3")

@@ -1,12 +1,11 @@
-name: VisitorPlugin
+name: fish-game
 version: '${version}'
-main: io.github.donghune.VisitorPlugin
+main: io.github.donghune.FishGamePlugin
 api-version: 1.16
 prefix: DHE
 description: minecraft project donghune source
 commands:
-  visitor:
-  손님:
+  fish:
 libraries:
   - net.kyori:adventure-api:4.10.1
   - org.jetbrains.kotlin:kotlin-stdlib:1.5.30

@@ -3,7 +3,6 @@ package io.github.donghune
 import org.bukkit.Material
 import org.bukkit.block.data.type.Beehive
 import org.bukkit.entity.ArmorStand
-import org.bukkit.entity.Chicken
 import org.bukkit.entity.Cow
 import org.bukkit.entity.Sheep
 import org.bukkit.event.EventHandler
@@ -42,7 +41,7 @@ class CustomRegenListener : Listener {
                 ).apply {
                     isInvisible = true
                 }
-            ).start(RegenConfigManager.get().hive)
+            ).start(regenConfig.hive)
         }
     }
 
@@ -54,21 +53,9 @@ class CustomRegenListener : Listener {
             if (!sheep.isSheared) {
                 SheepRegenScheduler(
                     sheep = sheep
-                ).start(RegenConfigManager.get().sheep)
+                ).start(regenConfig.sheep)
             }
         }
-    }
-
-    @EventHandler // 치킨이 알을 싸는 경우
-    fun onEntityDropItemEvent(event: EntityDropItemEvent) {
-        if (event.entity is Chicken) {
-            event.isCancelled = true
-        }
-    }
-
-    @EventHandler // 양 양털이 다시 자랐을때 이벤트
-    fun onSheepRegrowWoolEvent(event: SheepRegrowWoolEvent) {
-        event.isCancelled = true
     }
 
     @EventHandler
@@ -90,7 +77,7 @@ class CustomRegenListener : Listener {
                 else {
                     CowRegenScheduler(
                         cow = entity
-                    ).start(RegenConfigManager.get().cow)
+                    ).start(regenConfig.cow)
                 }
             }
         }

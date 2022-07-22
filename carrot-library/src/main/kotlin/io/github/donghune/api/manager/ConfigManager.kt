@@ -47,6 +47,10 @@ open class ConfigManager<T : Config>(
         return data
     }
 
+    fun reload() {
+        loadConfigFile()
+    }
+
     private fun loadConfigFile() {
         val file = File("${plugin.dataFolder.path}/$dataFolderPath", data.fileName)
         if (!file.exists()) {

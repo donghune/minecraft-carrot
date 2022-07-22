@@ -19,7 +19,7 @@ object ChickenCheckerScheduler : KBukkitScheduler() {
                 .forEach {
                     val chickenRegenScheduler = ChickenRegenScheduler(it)
                     scheduler.add(chickenRegenScheduler)
-                    chickenRegenScheduler.start(RegenConfigManager.get().chicken)
+                    chickenRegenScheduler.start(regenConfig.chicken)
                 }
         }
         onStop {

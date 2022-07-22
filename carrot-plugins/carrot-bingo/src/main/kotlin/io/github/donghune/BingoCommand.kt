@@ -1,21 +1,25 @@
 package io.github.donghune
 
 import io.github.donghune.api.kommand.kommand
-import io.github.donghune.api.translate
 import io.github.donghune.entity.BingoConfigManager
 import io.github.donghune.inventory.BingoItemRemoveInventory
 import io.github.donghune.scheduler.BingoCoroutineScheduler
 import org.bukkit.Material
+import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
+
+val playerByGauge = mutableMapOf<Player, Int>()
+
+var Player.gauge: Int
+    get() = playerByGauge[this] ?: 0
+    set(value) {
+        playerByGauge[this] = value
+    }
 
 object BingoCommand {
     fun initialize(plugin: BingoPlugin) {
         plugin.kommand {
             register("bingo") {
-                then("test") {
-                    executes {
-                        it.player.sendMessage(it.player.inventory.itemInMainHand.translate)
-                    }
-                }
                 then("start") {
                     executes {
                         BingoCoroutineScheduler.start(BingoConfigManager.get().gamePlayTime)

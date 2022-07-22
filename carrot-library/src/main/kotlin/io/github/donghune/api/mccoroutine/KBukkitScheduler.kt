@@ -26,6 +26,10 @@ open class KBukkitScheduler {
 
     private var task: CoroutineTask? = null
 
+    fun getTaskId(): Int? {
+        return task?.currentTask?.taskId
+    }
+
     fun start(time: Int) {
         _totalTime = time
         _during = 0

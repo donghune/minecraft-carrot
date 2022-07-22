@@ -7,6 +7,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.event.inventory.InventoryType
+import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -16,18 +18,29 @@ fun Player.updateGUI() {
     playerByGUI[this]?.refreshContent()
 }
 
-fun Collection<Player>.updateGUI() {
-    forEach { it.updateGUI() }
-}
-
-abstract class GUI(
+abstract class GUI private constructor(
     private val plugin: JavaPlugin,
-    private val size: Int,
     private val title: String,
 ) : Listener {
 
+    constructor(
+        plugin: JavaPlugin,
+        inventoryType: InventoryType,
+        title: String,
+    ) : this(plugin, title) {
+        inventory = Bukkit.createInventory(null, inventoryType, title)
+    }
+
+    constructor(
+        plugin: JavaPlugin,
+        size: Int,
+        title: String,
+    ) : this(plugin, title) {
+        inventory = Bukkit.createInventory(null, size, title)
+    }
+
     private val clickEvents: MutableMap<Int, (InventoryClickEvent) -> Unit> = mutableMapOf()
-    protected val inventory by lazy { Bukkit.createInventory(null, size, title) }
+    protected lateinit var inventory: Inventory
     lateinit var player: Player
 
     fun content(block: () -> Unit) {

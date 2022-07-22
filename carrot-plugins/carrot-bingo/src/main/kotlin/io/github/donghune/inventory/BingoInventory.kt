@@ -71,12 +71,13 @@ class BingoInventory : GUI(
                 setItem(28, specialItem(SpecialTimeScheduler.specialItem!!)) {
                     isCancelled = true
                     val specialItem = SpecialTimeScheduler.specialItem ?: return@setItem
+                    println(SpecialTimeScheduler.specialItem)
 
                     if (!player.inventory.hasItem(specialItem)) {
                         return@setItem
                     }
 
-                    player.inventory.removeItem(specialItem)
+                    println(player.inventory.removeItem(specialItem))
 
                     BingoManager.getBingoPlate(player)?.filter { !it.isChecked }?.random()?.isChecked = true
                     SpecialTimeScheduler.stop()

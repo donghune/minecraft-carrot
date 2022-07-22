@@ -12,9 +12,5 @@ class BingoPlugin : BasePlugin() {
         BingoCommand.initialize(this)
         Bukkit.getPluginManager().registerEvents(BingoListener(), this)
     }
-
-    override fun onDisable() {
-        super.onDisable()
-    }
 }
 

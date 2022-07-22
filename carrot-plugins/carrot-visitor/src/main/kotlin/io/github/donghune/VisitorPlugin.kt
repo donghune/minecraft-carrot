@@ -1,9 +1,6 @@
 package io.github.donghune
 
-import io.github.donghune.VisitorManager.removeWithPassengers
 import io.github.donghune.api.BasePlugin
-import io.github.donghune.entity.VisitorConfigManager
-import io.github.donghune.scheduler.VisitorWaitingScheduler
 import org.bukkit.plugin.java.JavaPlugin
 
 lateinit var visitorPlugin: JavaPlugin
@@ -12,16 +9,14 @@ class VisitorPlugin : BasePlugin() {
     override fun onEnable() {
         super.onEnable()
         visitorPlugin = this
-
-        VisitorConfigManager.get()
         VisitorCommand.initialize(this)
         VisitorListener.initialize(this)
     }
 
     override fun onDisable() {
         super.onDisable()
-        VisitorManager.getVisitors().forEach { it.first.removeWithPassengers() }
-        VisitorWaitingScheduler.armorStands.forEach { it.remove() }
+        VisitorManager.getVisitors().forEach {
+            VisitorManager.remove(it)
+        }
     }
 }
-

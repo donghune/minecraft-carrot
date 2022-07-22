@@ -45,8 +45,8 @@ object SpecialTimeScheduler : KBukkitScheduler() {
     init {
         onStart {
             specialItem = BingoConfigManager.get().items.random()
+            println(specialItem)
             bossBar.setTitle("특별 이벤트! [${specialItem?.translate}] 를 찾아라!")
-            Bukkit.getOnlinePlayers().updateGUI()
             Bukkit.getOnlinePlayers().forEach { bossBar.addPlayer(it) }
         }
         onDuringSec {
@@ -55,7 +55,6 @@ object SpecialTimeScheduler : KBukkitScheduler() {
         }
         onStop {
             specialItem = null
-            Bukkit.getOnlinePlayers().updateGUI()
             Bukkit.getOnlinePlayers().forEach { bossBar.removePlayer(it) }
         }
     }

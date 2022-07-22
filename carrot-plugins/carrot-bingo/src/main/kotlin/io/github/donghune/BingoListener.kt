@@ -6,7 +6,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 
 class BingoListener : Listener {
-
     @EventHandler
     fun onPlayerSwapHandItemsEvent(event: PlayerSwapHandItemsEvent) {
         if (event.player.isSneaking) {

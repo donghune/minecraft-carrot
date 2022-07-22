@@ -1,15 +1,12 @@
 package io.github.donghune.api
 
 import io.github.donghune.api.extensions.chatColor
-import net.md_5.bungee.api.chat.TranslatableComponent
 import net.minecraft.server.v1_16_R3.ChatMessage
 import net.minecraft.server.v1_16_R3.LocaleLanguage
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
-import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.*
@@ -37,6 +34,7 @@ class ItemStackFactory(
     itemStack: ItemStack = ItemStack(Material.AIR),
     isWithClone: Boolean = false,
 ) {
+    constructor(material: Material) : this(ItemStack(material))
 
     val itemStack = if (isWithClone) itemStack.clone() else itemStack
     var changedItemMeta: ItemMeta = itemStack.itemMeta!!
