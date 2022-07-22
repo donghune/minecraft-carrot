@@ -35,23 +35,9 @@ jobs:
       with:
         arguments: clean build shadowJar
 
-    - name: Send file README.md to discord channel
-      uses: sinshutu/upload-to-discord@master
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      with:
-        args: output/carrot-visitor.jar
-
-    - name: Send file README.md to discord channel
-      uses: sinshutu/upload-to-discord@master
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      with:
-        args: output/carrot-custom-regen.jar
-
-    - name: Send file README.md to discord channel
-      uses: sinshutu/upload-to-discord@master
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      with:
-        args: output/carrot-bingo.jar
+    - name: Send message to discord channel
+        uses: aar0nsky/discord-webhook-github-action@main
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          message: 플러그인이 새로운 버전으로 업데이트 되었습니다!\nhttps://drive.google.com/drive/folders/1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI?usp=sharing
