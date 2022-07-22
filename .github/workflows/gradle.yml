@@ -22,22 +22,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: clean build shadowJar
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        with:
+          arguments: clean build shadowJar
 
-    - name: Send message to discord channel
-      uses: aar0nsky/discord-webhook-github-action@main
-      with:
-        webhook_id: ${{ secrets.WEBHOOK_ID }}
-        webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        message: 플러그인이 새로운 버전으로 업데이트 되었습니다!\nhttps://drive.google.com/drive/folders/1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI?usp=sharing
+      - uses: actions/checkout@v2
+      - name: Upload a file to Google Drive
+        uses: willo32/google-drive-upload-action@v1
+        with:
+          target: carrot-plugins/carrot-bingo/build/libs/carrot-bingo.jar
+          credentials: ${{ secrets.<DRIVE_SERVICE_ACCOUNT_CREDENTIALS> }}
+          parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
+          child_folder: bingo
+
+      - name: Send message to discord channel
+        uses: aar0nsky/discord-webhook-github-action@main
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          message: 플러그인이 새로운 버전으로 업데이트 되었습니다!\nhttps://drive.google.com/drive/folders/1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI?usp=sharing
