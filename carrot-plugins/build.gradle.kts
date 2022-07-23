@@ -18,6 +18,10 @@ subprojects {
                 from(buildFolder)
                 into("${pluginProject.rootDir.absolutePath}${sep}.server${sep}plugins${sep}")
             }
+            copy {
+                from(buildFolder)
+                into("${pluginProject.rootDir.absolutePath}${sep}output${sep}")
+            }
         }
     }
 
