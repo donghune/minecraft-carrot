@@ -33,39 +33,39 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
         with:
-          arguments: clean visitor bingo custom-regen fishgame
+          arguments: clean build shadowJar
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: output/carrot-bingo.jar
+          target: carrot-plugins/carrot-bingo/build/libs/carrot-bingo.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: bingo
+          child_folder: bingo/${{ github.run_id }}
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: output/carrot-visitor.jar
+          target: carrot-plugins/carrot-visitor/build/libs/carrot-visitor.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: visitor
+          child_folder: visitor/${{ github.run_id }}
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: output/carrot-custom-regen.jar
+          target: carrot-plugins/carrot-custom-regen/build/libs/carrot-custom-regen.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: custom-regen
+          child_folder: custom-regen/${{ github.run_id }}
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: output/carrot-fishgame.jar
+          target: carrot-plugins/carrot-fishgame/build/libs/carrot-fishgame.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: fishgame
+          child_folder: fishgame/${{ github.run_id }}
 
       - name: Send message to discord channel
         uses: aar0nsky/discord-webhook-github-action@main
