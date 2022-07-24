@@ -35,7 +35,6 @@ jobs:
         with:
           arguments: clean visitor bingo custom-regen
 
-      - uses: actions/checkout@v2
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
@@ -44,7 +43,6 @@ jobs:
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
           child_folder: bingo
 
-      - uses: actions/checkout@v2
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
@@ -53,7 +51,6 @@ jobs:
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
           child_folder: visitor
 
-      - uses: actions/checkout@v2
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
