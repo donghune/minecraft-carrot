@@ -30,6 +30,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Get current date
+        run: echo "MY_DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+
       - name: Build with Gradle
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
         with:
@@ -41,7 +44,7 @@ jobs:
           target: carrot-plugins/carrot-bingo/build/libs/carrot-bingo.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: "::set-output name=date::$(date +'%Y-%m-%d-%H-%M')"
+          child_folder: ${{ env.MY_DATE }}
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
@@ -49,7 +52,7 @@ jobs:
           target: carrot-plugins/carrot-visitor/build/libs/carrot-visitor.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: "::set-output name=date::$(date +'%Y-%m-%d-%H-%M')"
+          child_folder: ${{ env.MY_DATE }}
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
@@ -57,7 +60,7 @@ jobs:
           target: carrot-plugins/carrot-custom-regen/build/libs/carrot-custom-regen.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: "::set-output name=date::$(date +'%Y-%m-%d-%H-%M')"
+          child_folder: ${{ env.MY_DATE }}
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
@@ -65,7 +68,7 @@ jobs:
           target: carrot-plugins/carrot-fishgame/build/libs/carrot-fishgame.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
-          child_folder: "::set-output name=date::$(date +'%Y-%m-%d-%H-%M')"
+          child_folder: ${{ env.MY_DATE }}
 
       - name: Send message to discord channel
         uses: aar0nsky/discord-webhook-github-action@main
