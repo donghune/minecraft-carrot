@@ -33,12 +33,12 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
         with:
-          arguments: clean build shadowJar
+          arguments: clean visitor bingo custom-regen fishgame
 
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: build/libs/carrot-bingo.jar
+          target: output/carrot-bingo.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
           child_folder: bingo
@@ -46,7 +46,7 @@ jobs:
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: build/libs/carrot-visitor.jar
+          target: output/carrot-visitor.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
           child_folder: visitor
@@ -54,10 +54,18 @@ jobs:
       - name: Upload a file to Google Drive
         uses: willo32/google-drive-upload-action@v1
         with:
-          target: build/libs/carrot-custom-regen.jar
+          target: output/carrot-custom-regen.jar
           credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
           parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
           child_folder: custom-regen
+
+      - name: Upload a file to Google Drive
+        uses: willo32/google-drive-upload-action@v1
+        with:
+          target: output/carrot-fishgame.jar
+          credentials: ${{ secrets.DRIVE_SERVICE_ACCOUNT_CREDENTIALS }}
+          parent_folder_id: 1o14oRhATuYa7Zsdyq-reHk9HykE4zfgI
+          child_folder: fishgame
 
       - name: Send message to discord channel
         uses: aar0nsky/discord-webhook-github-action@main
