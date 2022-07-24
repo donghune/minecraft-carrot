@@ -1,8 +1,7 @@
 package io.github.donghune.api
 
 import io.github.donghune.api.extensions.chatColor
-import net.minecraft.server.v1_16_R3.ChatMessage
-import net.minecraft.server.v1_16_R3.LocaleLanguage
+import net.minecraft.server.v1_16_R3.*
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack
@@ -20,6 +19,7 @@ val ItemStack.displayName: String
 
 val ItemStack.resourceKey: String
     get() {
+        //net.minecraft.server.v1_16_R3.Biomes
         val nmsItem: net.minecraft.server.v1_16_R3.ItemStack = CraftItemStack.asNMSCopy(this)
         LocaleLanguage.a()
         return (nmsItem.item.h(nmsItem) as ChatMessage).key

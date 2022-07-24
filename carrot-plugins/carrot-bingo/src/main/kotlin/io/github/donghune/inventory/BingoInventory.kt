@@ -77,8 +77,6 @@ class BingoInventory : GUI(
                         return@setItem
                     }
 
-                    println(player.inventory.removeItem(specialItem))
-
                     BingoManager.getBingoPlate(player)?.filter { !it.isChecked }?.random()?.isChecked = true
                     SpecialTimeScheduler.stop()
                     player.playSound(player.location, Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1f, 1f)

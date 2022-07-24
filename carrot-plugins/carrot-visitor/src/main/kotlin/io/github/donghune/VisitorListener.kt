@@ -6,6 +6,7 @@ import io.github.donghune.api.getObject
 import io.github.donghune.entity.VisitorMeta
 import io.github.donghune.util.isCapableDamaged
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.entity.Villager
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -45,6 +46,7 @@ object VisitorListener : Listener {
         val totalReward = price * amount * (if (isDouble) 2 else 1)
 
         event.player.inventory.addItem(ItemStack(Material.EMERALD).apply { setAmount(totalReward) })
+        event.player.playSound(event.player.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
         VisitorManager.remove(event.rightClicked as Villager)
     }
 }

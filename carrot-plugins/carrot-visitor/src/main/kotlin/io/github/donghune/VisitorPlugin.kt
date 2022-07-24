@@ -15,8 +15,6 @@ class VisitorPlugin : BasePlugin() {
 
     override fun onDisable() {
         super.onDisable()
-        VisitorManager.getVisitors().forEach {
-            VisitorManager.remove(it)
-        }
+        VisitorManager.stop()
     }
 }

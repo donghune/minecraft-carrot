@@ -49,6 +49,7 @@ class GameTimer : KBukkitScheduler() {
             listOf(*VisitorManager.getVisitors().toTypedArray()).forEach {
                 VisitorManager.remove(it)
             }
+            bossBar.removeAll()
         }
     }
 }

@@ -1,19 +1,19 @@
 package io.github.donghune.scheduler
 
 import io.github.donghune.BingoManager
+import io.github.donghune.api.TranslateManager
 import io.github.donghune.api.extensions.Title
-import io.github.donghune.api.mccoroutine.KBukkitScheduler
-import io.github.donghune.api.translate
-import io.github.donghune.entity.BingoConfigManager
 import io.github.donghune.api.extensions.sendActionBar
 import io.github.donghune.api.extensions.sendTitle
-import io.github.donghune.api.inventory.updateGUI
+import io.github.donghune.api.mccoroutine.ExpandableKBukkitScheduler
+import io.github.donghune.api.mccoroutine.KBukkitScheduler
+import io.github.donghune.api.resourceKey
+import io.github.donghune.entity.BingoConfigManager
 import org.bukkit.Bukkit
-import org.bukkit.boss.BarColor
-import org.bukkit.boss.BarStyle
-import org.bukkit.inventory.ItemStack
+import org.bukkit.scoreboard.DisplaySlot
+import org.bukkit.scoreboard.RenderType
 
-object BingoCoroutineScheduler : KBukkitScheduler() {
+object BingoCoroutineScheduler : ExpandableKBukkitScheduler() {
     init {
         onStart {
             BingoManager.createAll()
@@ -27,6 +27,21 @@ object BingoCoroutineScheduler : KBukkitScheduler() {
                 }
                 SpecialTimeScheduler.start(BingoConfigManager.get().specialTime)
             }
+            Bukkit.getOnlinePlayers().forEach {
+                val scoreboardManager = Bukkit.getScoreboardManager() ?: return@forEach
+                val scoreboard = scoreboardManager.newScoreboard
+
+                val objective = scoreboard.registerNewObjective("biome", "dummy", "바이옴", RenderType.INTEGER)
+                objective.displaySlot = DisplaySlot.SIDEBAR
+
+                val score = objective.getScore(
+                    TranslateManager.translate(
+                        "biome.${it.location.block.biome.key.namespace}.${it.location.block.biome.key.key}"
+                    ) ?: ""
+                )
+                score.score = 1
+                it.scoreboard = scoreboard
+            }
         }
         onStop {
             SpecialTimeScheduler.stop()
@@ -36,26 +51,3 @@ object BingoCoroutineScheduler : KBukkitScheduler() {
     }
 }
 
-object SpecialTimeScheduler : KBukkitScheduler() {
-
-    var specialItem: ItemStack? = null
-    private val bossBar =
-        Bukkit.createBossBar("특별 이벤트! [${specialItem?.translate}] 를 찾아라!", BarColor.BLUE, BarStyle.SOLID)
-
-    init {
-        onStart {
-            specialItem = BingoConfigManager.get().items.random()
-            println(specialItem)
-            bossBar.setTitle("특별 이벤트! [${specialItem?.translate}] 를 찾아라!")
-            Bukkit.getOnlinePlayers().forEach { bossBar.addPlayer(it) }
-        }
-        onDuringSec {
-            Bukkit.getOnlinePlayers().forEach { bossBar.addPlayer(it) }
-            bossBar.progress = (leftSec / totalTime.toDouble())
-        }
-        onStop {
-            specialItem = null
-            Bukkit.getOnlinePlayers().forEach { bossBar.removePlayer(it) }
-        }
-    }
-}

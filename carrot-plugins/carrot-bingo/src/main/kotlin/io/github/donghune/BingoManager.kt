@@ -6,12 +6,13 @@ import io.github.donghune.entity.BingoConfigManager
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import java.util.UUID
 
 object BingoManager {
-    private val bingoPlate: MutableMap<Player, List<BingoItem>> = mutableMapOf()
+    val bingoPlate: MutableMap<UUID, List<BingoItem>> = mutableMapOf()
 
     fun create(player: Player) {
-        bingoPlate[player] = BingoConfigManager.get().items.shuffled().subList(0, 25).map { BingoItem(it, false) }
+        bingoPlate[player.uniqueId] = BingoConfigManager.get().items.shuffled().subList(0, 25).map { BingoItem(it, false) }
     }
 
     fun createAll() {
@@ -21,7 +22,7 @@ object BingoManager {
     }
 
     fun reset(player: Player) {
-        bingoPlate.remove(player)
+        bingoPlate.remove(player.uniqueId)
     }
 
     fun resetAll() {
@@ -31,12 +32,12 @@ object BingoManager {
     }
 
     fun getBingoPlate(player: Player): List<BingoItem>? {
-        return bingoPlate[player]
+        return bingoPlate[player.uniqueId]
     }
 
     fun calculateBingoCount(player: Player): Int {
         var count = 0
-        val array = bingoPlate[player]!!
+        val array = bingoPlate[player.uniqueId]!!
 
         // 가로 체크
         if (listOf(array[0], array[1], array[2], array[3], array[4]).find { item -> !item.isChecked } == null) {

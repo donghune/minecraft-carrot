@@ -93,6 +93,13 @@ object VisitorCommand {
                 }
             }
             register("visitor") {
+                then("bug") {
+                    executes {
+                        it.player.getNearbyEntities(10.0, 10.0, 10.0).forEach {
+                            it.remove()
+                        }
+                    }
+                }
                 then("start") {
                     executes {
                         VisitorManager.start()

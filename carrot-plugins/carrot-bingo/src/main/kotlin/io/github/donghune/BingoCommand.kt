@@ -1,5 +1,6 @@
 package io.github.donghune
 
+import io.github.donghune.api.kommand.argument.integer
 import io.github.donghune.api.kommand.kommand
 import io.github.donghune.entity.BingoConfigManager
 import io.github.donghune.inventory.BingoItemRemoveInventory
@@ -28,6 +29,16 @@ object BingoCommand {
                 then("stop") {
                     executes {
                         BingoCoroutineScheduler.stop()
+                    }
+                }
+                then("time") {
+                    then("add") {
+                        then("time" to integer()) {
+                            executes {
+                                val time: Int = it.parseArgument("time")
+                                BingoCoroutineScheduler.addTime(time)
+                            }
+                        }
                     }
                 }
                 then("item") {
