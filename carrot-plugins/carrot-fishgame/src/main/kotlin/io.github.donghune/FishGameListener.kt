@@ -33,6 +33,7 @@ class FishGameListener : Listener {
         }
 
         if (!event.player.fishGame.status.isPlaying) {
+            event.player.fishGame.stop()
             return
         }
 

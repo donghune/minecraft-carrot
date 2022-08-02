@@ -6,6 +6,7 @@ import io.github.donghune.api.plugin
 import io.github.donghune.entity.SalesItem
 import io.github.donghune.entity.visitorConfig
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.inventory.ItemStack
 import kotlin.math.max
@@ -86,11 +87,13 @@ class SalesItemRegisterInventory(
             }
             setItem(3, AMOUNT_UP) {
                 isCancelled = true
+                player.playSound(player.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
                 amount++
                 refreshContent()
             }
             setItem(4, AMOUNT_DOWN) {
                 isCancelled = true
+                player.playSound(player.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
                 amount--
                 refreshContent()
             }

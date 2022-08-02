@@ -76,6 +76,7 @@ object VisitorManager {
         villager.setTag("VisitorMeta", visitorMeta)
         villager.addPassenger(rabbit)
         villager.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED)?.baseValue = 0.0
+        villager.villagerType = Villager.Type.values().random()
 
         if (visitorMeta.isSpecial) {
             villager.addPotionEffect(
@@ -121,7 +122,7 @@ object VisitorManager {
     fun start() {
         isPlaying = true
         gameTimer = GameTimer()
-        gameTimer.start((visitorConfig.playTime * 20L).toInt())
+        gameTimer.start(visitorConfig.playTime)
     }
 
     fun stop() {
